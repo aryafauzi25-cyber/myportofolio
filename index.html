@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portofolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-start: #f7fbff;
+            --bg-end: #fff7fb;
+            --card-bg: #ffffff;
+            --accent-violet: #6c63ff;
+            --accent-teal: #00c2a8;
+            --accent-coral: #ff6b6b;
+            --text: #0f1724;
+            --muted: #6b7280;
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+            color: var(--text);
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(90deg, var(--accent-violet) 0%, var(--accent-teal) 25%, var(--accent-coral) 75%, var(--accent-violet) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 40px;
+            box-shadow: 0 6px 30px rgba(15,23,36,0.12);
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: conic-gradient(from 180deg at 50% 50%, var(--accent-violet), var(--accent-teal), var(--accent-coral), var(--accent-teal));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .brand h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background 0.18s, color 0.18s, transform 0.12s;
+        }
+
+        .nav-menu a.active,
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.2);
+            color: #ffffffcc;
+            transform: translateY(-2px);
+        }
+
+        /* remove underline from card links */
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .cta {
+            padding: 9px 16px;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-violet));
+            color: white;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 12px 30px rgba(0, 194, 168, 0.12);
+            transition: transform 0.18s, filter 0.18s;
+        }
+
+        .cta:hover {
+            filter: brightness(0.95);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile */
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .nav-toggle .bar {
+            display: block;
+            width: 22px;
+            height: 2px;
+            margin: 4px 0;
+            background: #333;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        @media (max-width: 840px) {
+            header {
+                padding: 12px 20px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                right: 12px;
+                top: 68px;
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(6px);
+                flex-direction: column;
+                gap: 0;
+                padding: 10px;
+                border-radius: 12px;
+                box-shadow: 0 18px 50px rgba(15, 23, 36, 0.12);
+                transform-origin: top right;
+                display: none;
+                min-width: 200px;
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .nav-menu a {
+                padding: 12px 16px;
+                width: 100%;
+            }
+
+            .nav-toggle {
+                display: inline-flex;
+            }
+        }
+
+        /* Jumbotron / Hero */
+        .jumbotron {
+            padding: 64px 28px;
+            margin: 28px auto;
+            max-width: 1150px;
+            border-radius: 18px;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-teal));
+            color: white;
+            box-shadow: 0 30px 80px rgba(15, 23, 36, 0.12);
+        }
+
+        .jumbotron .lead {
+            max-width: 620px;
+        }
+
+        .jumbotron h1 {
+            font-size: 44px;
+            margin-bottom: 12px;
+            line-height: 1.05;
+            font-weight: 800;
+        }
+
+        .jumbotron p {
+            color: rgba(255, 255, 255, 0.92);
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .jumbotron .cta-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .jumbotron .cta-outline {
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.18s, transform 0.12s;
+        }
+
+        .jumbotron .cta-outline:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateY(-3px);
+        }
+
+        .jumbotron .hero-card {
+            width: 320px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(15, 23, 36, 0.18);
+            border: 6px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero {
+            /* alias for backward compatibility */
+        }
+
+        /* Section */
+        section {
+            padding: 60px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        /* Portfolio Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 36, 0.06);
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+            border-left: 6px solid rgba(108, 99, 255, 0.14);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(15, 23, 36, 0.12);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-body {
+            padding: 18px;
+        }
+
+        .card-body h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .card-body p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* About */
+        .about {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+        }
+
+        .contact a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: linear-gradient(90deg, var(--accent-violet), var(--accent-teal));
+            color: white;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 12px 30px rgba(108, 99, 255, 0.12);
+        }
+
+        .contact a:hover {
+            filter: brightness(0.96);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Responsive smaller */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            section {
+                padding: 50px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body> <!-- Navbar -->
+    <header>
+        <a href="#home" class="brand">
+            <span class="logo">MP</span>
+            <h2>My Portofolio</h2>
+        </a>
+
+        <nav>
+            <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#portfolio" class="nav-link">Portofolio</a>
+                <a href="#contact" class="nav-link">Kontak</a>
+                <a href="https://wa.me/6282342816085" class="cta">Hubungi</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Jumbotron -->
+    <section class="jumbotron" id="home">
+        <div class="lead">
+            <h1>Halo! Selamat Datang di Portofolio Saya</h1>
+            <p>Kumpulan karya terbaik saya:videografi, fotografi, editor, dan proyek kreatif lainnya. Jelajahi
+                portofolio
+                dan hubungi saya untuk kolaborasi.</p>
+
+            <div class="cta-group">
+                <a href="#portfolio" class="cta">Lihat Portofolio</a>
+                <a href="https://wa.me/6282342816085" class="cta-outline">Hubungi</a>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <img src="gue.jpeg" alt="showcase" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio">
+        <h2 class="section-title">Hasil Portofolio</h2>
+        <div class="grid">
+            <a href="#" class="card-link">
+                <div class="card">
+                    <img src="foto.jpeg" alt="portfolio" />
+                    <div class="card-body">
+                        <h3>PHOTOGRAPHY</h3>
+                        <p>Kumpulan karya foto dengan vibe estetik dan storytelling yang kuat. Setiap jepretan dibuat
+                            untuk nangkap momen biar terasa hidup, eye-catching, dan pastinya nggak ngebosenin.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="card-link">
+                <div class="card">
+                    <img src="gue.jpeg" alt="portfolio" />
+                    <div class="card-body">
+                        <h3>VIDEOGRAPHY</h3>
+                        <p>Kumpulan karya video dengan visual yang dinamis dan cinematic. Setiap footage dirancang buat
+                            nyampein cerita dengan flow yang smooth, engaging, dan pastinya bikin betah ditonton.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="card-link">
+                <div class="card">
+                    <img src="edit.png" alt="portfolio" />
+                    <div class="card-body">
+                        <h3>EDITOR</h3>
+                        <p>Portofolio hasil editing yang menonjolkan kerapian potongan, konsistensi warna, dan alur
+                            visual yang efektif. Setiap proyek dikerjakan dengan fokus pada kualitas dan kebutuhan
+                            klien.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="card-link">
+                <div class="card">
+                    <img src="brand.jpeg" alt="portfolio" />
+                    <div class="card-body">
+                        <h3>KONTEN BRAND</h3>
+                        <p>Kumpulan karya konten brand yang dirancang untuk menarik perhatian audiens dan memperkuat citra merek. Setiap konten dibuat dengan fokus pada estetika, konsistensi visual, dan kebutuhan brand.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </section> <!-- About -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about">
+            <img src="pppp.jpg" alt="Foto Profil"
+                style="width:160px;height:160px;border-radius:50%;object-fit:cover;margin-bottom:20px;box-shadow:0 8px 25px rgba(0,0,0,0.08);" />
+            <p>
+
+                Halo! Saya Arya Fauzi seorang fotografer, video editor, dan videografer yang berfokus pada pembuatan
+                konten visual yang menarik dan modern. Saya senang mengubah ide sederhana menjadi karya visual yang
+                kuat, estetis, dan komunikatif.
+                Saya selalu berusaha menghadirkan hasil yang rapi, konsisten, dan sesuai dengan kebutuhan setiap proyek.
+            </p>
+        </div>
+    </section> <!-- Contact -->
+    <section id="contact">
+        <h2 class="section-title">Kontak</h2>
+        <div class="contact">
+            <p>Tertarik bekerja sama? Hubungi saya.</p>
+            <a href="https://wa.me/6282342816085">Chat WhatsApp</a>
+        </div>
+    </section>
+    <footer>
+        © 2026 My Portofolio
+    </footer>
+    <script>
+        (function () {
+            const toggle = document.querySelector('.nav-toggle');
+            const menu = document.getElementById('navMenu');
+            const links = document.querySelectorAll('.nav-link');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    const open = menu.classList.toggle('open');
+                    toggle.setAttribute('aria-expanded', open);
+                });
+
+                links.forEach(a => a.addEventListener('click', () => {
+                    menu.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    links.forEach(x => x.classList.remove('active'));
+                    a.classList.add('active');
+                }));
+
+                // highlight on scroll
+                const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+                function onScroll() {
+                    const mid = window.innerHeight / 2;
+                    let current = sections[0];
+                    for (const s of sections) {
+                        const r = s.getBoundingClientRect();
+                        if (r.top <= mid) current = s;
+                    }
+                    links.forEach(l => l.classList.remove('active'));
+                    const match = links.namedItem ? links.namedItem(current.id) : null;
+                    // fallback: find by href
+                    const active = Array.from(links).find(l => l.getAttribute('href') === '#' + current.id);
+                    if (active) active.classList.add('active');
+                }
+                window.addEventListener('scroll', onScroll, { passive: true });
+                onScroll();
+            }
+        })();
+    </script>
+</body>
+
+</html>
